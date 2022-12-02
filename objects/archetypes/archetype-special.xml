@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2022 Evolveum, All rights reserved -->
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <name>Special</name>
+    <description>Special account</description>
+    <archetypePolicy>
+        <display>
+            <label>Special</label>
+            <pluralLabel>Specials</pluralLabel>
+            <tooltip>Special account</tooltip>
+            <icon>
+                <cssClass>fa fa-user</cssClass>
+                <color>darkorange</color>
+            </icon>
+        </display>
+    </archetypePolicy>
+    <assignment>
+        <assignmentRelation>
+            <holderType>UserType</holderType>
+        </assignmentRelation>
+    </assignment>
+</archetype>

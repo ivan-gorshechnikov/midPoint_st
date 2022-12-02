@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2022 Evolveum, All rights reserved -->
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <name>Contact</name>
+    <description>Contacts (external and internal)</description>
+    <archetypePolicy>
+        <display>
+            <label>Contact</label>
+            <pluralLabel>Contacts</pluralLabel>
+            <tooltip>Contact</tooltip>
+            <icon>
+                <cssClass>fa fa-user</cssClass>
+                <color>blue</color>
+            </icon>
+        </display>
+    </archetypePolicy>
+    <assignment>
+        <assignmentRelation>
+            <holderType>UserType</holderType>
+        </assignmentRelation>
+    </assignment>
+</archetype>

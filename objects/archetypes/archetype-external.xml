@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- (c) 2011-2022 Evolveum, All rights reserved -->
+<archetype xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
+    <name>External</name>
+    <description>External worker</description>
+    <archetypePolicy>
+        <display>
+            <label>External</label>
+            <pluralLabel>Externals</pluralLabel>
+            <tooltip>External worker</tooltip>
+            <icon>
+                <cssClass>fa fa-user</cssClass>
+                <color>olive</color>
+            </icon>
+        </display>
+    </archetypePolicy>
+    <assignment>
+        <assignmentRelation>
+            <holderType>UserType</holderType>
+        </assignmentRelation>
+    </assignment>
+</archetype>
