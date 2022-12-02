@@ -8,10 +8,14 @@ import org.identityconnectors.common.logging.Log
 import org.identityconnectors.common.security.GuardedString
 import org.identityconnectors.framework.common.exceptions.ConnectorException
 import org.identityconnectors.framework.common.objects.Attribute
+import org.identityconnectors.framework.common.objects.AttributeInfo
 import org.identityconnectors.framework.common.objects.AttributeBuilder
+import org.identityconnectors.framework.common.objects.AttributeInfoBuilder
 import org.identityconnectors.framework.common.objects.AttributeUtil
 import org.identityconnectors.framework.common.objects.ConnectorObject
+import org.identityconnectors.framework.common.objects.Name
 import org.identityconnectors.framework.common.objects.OperationOptions
+import org.identityconnectors.framework.common.objects.Uid
 import org.identityconnectors.framework.common.objects.filter.Filter
 import org.identityconnectors.framework.common.objects.filter.FilterVisitor
 
@@ -54,9 +58,22 @@ class ScriptedSqlUtils {
     {
         switch (type) {
             case 'NUMBER': return Integer.class;
-            case 'DATE': return Date.class;
+            case 'DATE': return ZonedDateTime.class;
             default: return String.class;
         }
+    }
+
+    static void addUidAndName(Set<AttributeInfo> attributes) {
+        AttributeInfoBuilder nmeBuilder = new AttributeInfoBuilder();
+        nmeBuilder.setCreateable(true);
+        nmeBuilder.setUpdateable(true);
+        nmeBuilder.setName(Name.NAME);
+        attributes.add(nmeBuilder.build());
+        AttributeInfoBuilder uidBuilder = new AttributeInfoBuilder();
+        uidBuilder.setCreateable(true);
+        uidBuilder.setUpdateable(true);
+        uidBuilder.setName(Uid.NAME);
+        attributes.add(uidBuilder.build());
     }
 
     static void executeQuery(String sqlQuery, Map sqlParams, OperationOptions options, Closure closure, Closure handler, Sql sql) {
