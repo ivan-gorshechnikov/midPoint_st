@@ -1,4 +1,4 @@
-import common.ScriptedSqlUtils.*
+import common.ScriptedSqlUtils
 import org.forgerock.openicf.misc.scriptedcommon.OperationType
 import org.identityconnectors.common.logging.Log
 import org.identityconnectors.framework.common.objects.ObjectClass
@@ -23,9 +23,9 @@ def getAccountColumns = { meta ->
         ScriptedSqlUtils.addUidAndName(accountAttributes);
         for (int i = 1; i <= colCount; i++) {
             String colName = meta.getColumnName(i).toUpperCase();
-            String colType = meta.getColumnTypeName(i);
+            Class<?> colType = ScriptedSqlUtils.covertOracleTypeToJava(meta.getColumnTypeName(i));
             if (!'ID'.equals(colName) && !'LOGIN'.equals(colName)) {
-                accountAttributes.add(AttributeInfoBuilder.build(colName, ScriptedSqlUtils.covertOracleTypeToJava(colType)));
+                accountAttributes.add(AttributeInfoBuilder.build(colName, colType));
             }
         }
     }
@@ -38,8 +38,8 @@ def getDepartmentColumns = { meta ->
         ScriptedSqlUtils.addUidAndName(departmentAttributes)
         for (int i = 1; i <= colCount; i++) {
             String colName = meta.getColumnName(i).toUpperCase();
-            String colType = meta.getColumnTypeName(i);
-            departmentAttributes.add(AttributeInfoBuilder.build(colName, ScriptedSqlUtils.covertOracleTypeToJava(colType)));
+            Class<?> colType = ScriptedSqlUtils.covertOracleTypeToJava(meta.getColumnTypeName(i));
+            departmentAttributes.add(AttributeInfoBuilder.build(colName, colType));
         }
     }
 }
@@ -51,8 +51,8 @@ def getAppointColumns = { meta ->
         ScriptedSqlUtils.addUidAndName(appointAttributes)
         for (int i = 1; i <= colCount; i++) {
             String colName = meta.getColumnName(i).toUpperCase();
-            String colType = meta.getColumnTypeName(i);
-            appointAttributes.add(AttributeInfoBuilder.build(colName, ScriptedSqlUtils.covertOracleTypeToJava(colType)));
+            Class<?> colType = ScriptedSqlUtils.covertOracleTypeToJava(meta.getColumnTypeName(i));
+            appointAttributes.add(AttributeInfoBuilder.build(colName, colType));
         }
     }
 }
