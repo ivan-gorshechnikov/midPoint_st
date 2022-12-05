@@ -30,7 +30,8 @@ log.info("Entering " + operation + " Script")
 
 def sql = new Sql(connection)
 
-ObjectClass departmentObjectClass = new ObjectClass ("Department")
+ObjectClass departmentObjectClass = new ObjectClass("Department")
+ObjectClass appointObjectClass = new ObjectClass("Appoint")
 
 switch (objectClass) {
     case ObjectClass.ACCOUNT:
@@ -38,6 +39,9 @@ switch (objectClass) {
         break
     case departmentObjectClass:
         handleDepartment(sql)
+        break
+    case appointObjectClass:
+        handleAppoint(sql)
         break
     default:
         throw new ConnectorException("Unknown object class " + objectClass)
@@ -74,57 +78,80 @@ void handleDepartment(Sql sql) {
     }
 }
 
+void handleAppoint(Sql sql) {
+    Closure closure = { row ->
+        buildAppoint(sql, row)
+    }
+    def sqlQuery = '''select 
+	ID,
+	NAME,
+	NAME_ENG,
+	from appoint'''
+
+    Map params = [:]
+
+    String where = buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
+
+    if (!where.isEmpty()) {
+        sqlQuery += " and " + where
+    }
+
+    sql.withTransaction {
+        executeQuery(sqlQuery, params, options, closure, handler, sql)
+    }
+}
+
 void handleAccount(Sql sql) {
     Closure closure = { row ->
         buildAccount(sql, row)
     }
-def sqlQuery = '''select 
-STATUS_EMP,
-ID,           
-TO_CHAR(D_IN, 'DD.MM.YYYY') AS D_IN,
-TO_CHAR(D_OUT, 'DD.MM.YYYY') AS D_OUT,
-TO_CHAR(MATERNITY_FROM, 'DD.MM.YYYY') AS MATERNITY_FROM,
-TO_CHAR(MATERNITY_TO, 'DD.MM.YYYY') AS MATERNITY_TO,
-TO_CHAR(TRIAL_PERIOD, 'DD.MM.YYYY') AS TRIAL_PERIOD,
-TO_CHAR(D_BIRTH, 'DD.MM.YYYY') AS D_BIRTH,         
-TAB_N,                  
-CARD_ID,               
-L_NAME,               
-F_NAME,              
-M_NAME,           
-NAME_OLD,
-APPOINT_ID,
-APPOINT_NAME,         
-APPOINT_ENAME,
-SEX, 
-COST_CENTER, 
-EMAIL,
-DEPT_ID,
-BOSS1,
-BOSS2,
-BOSS3,
-EMPSTAT_ID,
-LOGIN,
-LOC, 
-ROOM,
-EXT,
-EMAIL_EXT,
-MATERNITY,
-LEAVE_PLAN,
-BOARD,
-BOARD1,
-BOARD2,
-PHOTO,
-SNILS,
-FHEAD,
-COMPANY_ID,
-TECH_DISSM,
-BOSS_MOBILE
-from emp'''
+    def sqlQuery = '''select 
+    STATUS_EMP,
+    ID,           
+    TO_CHAR(D_IN, 'DD.MM.YYYY') AS D_IN,
+    TO_CHAR(D_OUT, 'DD.MM.YYYY') AS D_OUT,
+    TO_CHAR(MATERNITY_FROM, 'DD.MM.YYYY') AS MATERNITY_FROM,
+    TO_CHAR(MATERNITY_TO, 'DD.MM.YYYY') AS MATERNITY_TO,
+    TO_CHAR(TRIAL_PERIOD, 'DD.MM.YYYY') AS TRIAL_PERIOD,
+    TO_CHAR(D_BIRTH, 'DD.MM.YYYY') AS D_BIRTH,         
+    TAB_N,                  
+    CARD_ID,               
+    L_NAME,               
+    F_NAME,              
+    M_NAME,           
+    NAME_OLD,
+    APPOINT_ID,
+    APPOINT_NAME,         
+    APPOINT_ENAME,
+    SEX, 
+    COST_CENTER, 
+    EMAIL,
+    DEPT_ID,
+    BOSS1,
+    BOSS2,
+    BOSS3,
+    EMPSTAT_ID,
+    LOGIN,
+    LOC, 
+    ROOM,
+    EXT,
+    EMAIL_EXT,
+    MATERNITY,
+    LEAVE_PLAN,
+    BOARD,
+    BOARD1,
+    BOARD2,
+    PHOTO,
+    SNILS,
+    FHEAD,
+    COMPANY_ID,
+    TECH_DISSM,
+    BOSS_MOBILE
+    from emp'''
 
     Map params = [:]
 
-   String where = buildWhereClause(filter, params, "ID", 'LOGIN', new ColumnPrefixMapper(''), String.class)
+    String where = buildWhereClause(filter, params, "ID", 'LOGIN', new ColumnPrefixMapper(''), String.class)
 
     if (!where.isEmpty()) {
         sqlQuery += " where " + where
@@ -138,7 +165,6 @@ from emp'''
 static ConnectorObject buildDepartment(Sql sql, GroovyObject row) {
 	return ICFObjectBuilder.co {
 		objectClass 'CustomDepartmentObjectClass'
-
 		uid row.ID as String
 		id row.ID as String
 		attribute 'NAME', row.NAME
@@ -151,51 +177,59 @@ static ConnectorObject buildDepartment(Sql sql, GroovyObject row) {
 	}
 }
 
-static ConnectorObject buildAccount(Sql sql, GroovyObject row) {
+static ConnectorObject buildAppoint(Sql sql, GroovyObject row) {
+    return ICFObjectBuilder.co {
+        objectClass 'CustomAppointObjectClass'
+        uid row.ID as String
+        id row.ID as String
+        attribute 'NAME', row.NAME
+        attribute 'NAME_ENG', row.NAME_ENG
+    }
+}
 
+static ConnectorObject buildAccount(Sql sql, GroovyObject row) {
     return ICFObjectBuilder.co {
         objectClass ObjectClass.ACCOUNT
-
         uid row.ID as String
         id row.LOGIN
-attribute 'STATUS_EMP', row.STATUS_EMP                   
-attribute 'TAB_N', row.TAB_N                  
-attribute 'CARD_ID', row.CARD_ID               
-attribute 'L_NAME', row.L_NAME               
-attribute 'F_NAME', row.F_NAME              
-attribute 'M_NAME', row.M_NAME           
-attribute 'NAME_OLD', row.NAME_OLD
-attribute 'APPOINT_ID', row.APPOINT_ID
-attribute 'APPOINT_NAME', row.APPOINT_NAME         
-attribute 'APPOINT_ENAME', row.APPOINT_ENAME
-attribute 'SEX', row.SEX 
-attribute 'COST_CENTER', row.COST_CENTER
-attribute 'EMAIL', row.EMAIL
-attribute 'D_IN', row.D_IN
-attribute 'D_OUT', row.D_OUT
-attribute 'DEPT_ID', row.DEPT_ID
-attribute 'BOSS1', row.BOSS1
-attribute 'BOSS2', row.BOSS2
-attribute 'BOSS3', row.BOSS3
-attribute 'EMPSTAT_ID', row.EMPSTAT_ID
-attribute 'LOC', row.LOC
-attribute 'ROOM', row.ROOM
-attribute 'EXT', row.EXT
-attribute 'EMAIL_EXT', row.EMAIL_EXT
-attribute 'MATERNITY', row.MATERNITY
-attribute 'MATERNITY_FROM', row.MATERNITY_FROM
-attribute 'MATERNITY_TO', row.MATERNITY_TO
-attribute 'LEAVE_PLAN', row.LEAVE_PLAN
-attribute 'BOARD', row.BOARD
-attribute 'BOARD1', row.BOARD1
-attribute 'BOARD2', row.BOARD2
-attribute 'TRIAL_PERIOD', row.TRIAL_PERIOD
-attribute 'PHOTO', row.PHOTO
-attribute 'D_BIRTH', row.D_BIRTH
-attribute 'SNILS', row.SNILS
-attribute 'FHEAD', row.FHEAD
-attribute 'COMPANY_ID', row.COMPANY_ID
-attribute 'TECH_DISSM', row.TECH_DISSM
-attribute 'BOSS_MOBILE', row.BOSS_MOBILE
+        attribute 'STATUS_EMP', row.STATUS_EMP
+        attribute 'TAB_N', row.TAB_N
+        attribute 'CARD_ID', row.CARD_ID
+        attribute 'L_NAME', row.L_NAME
+        attribute 'F_NAME', row.F_NAME
+        attribute 'M_NAME', row.M_NAME
+        attribute 'NAME_OLD', row.NAME_OLD
+        attribute 'APPOINT_ID', row.APPOINT_ID
+        attribute 'APPOINT_NAME', row.APPOINT_NAME
+        attribute 'APPOINT_ENAME', row.APPOINT_ENAME
+        attribute 'SEX', row.SEX
+        attribute 'COST_CENTER', row.COST_CENTER
+        attribute 'EMAIL', row.EMAIL
+        attribute 'D_IN', row.D_IN
+        attribute 'D_OUT', row.D_OUT
+        attribute 'DEPT_ID', row.DEPT_ID
+        attribute 'BOSS1', row.BOSS1
+        attribute 'BOSS2', row.BOSS2
+        attribute 'BOSS3', row.BOSS3
+        attribute 'EMPSTAT_ID', row.EMPSTAT_ID
+        attribute 'LOC', row.LOC
+        attribute 'ROOM', row.ROOM
+        attribute 'EXT', row.EXT
+        attribute 'EMAIL_EXT', row.EMAIL_EXT
+        attribute 'MATERNITY', row.MATERNITY
+        attribute 'MATERNITY_FROM', row.MATERNITY_FROM
+        attribute 'MATERNITY_TO', row.MATERNITY_TO
+        attribute 'LEAVE_PLAN', row.LEAVE_PLAN
+        attribute 'BOARD', row.BOARD
+        attribute 'BOARD1', row.BOARD1
+        attribute 'BOARD2', row.BOARD2
+        attribute 'TRIAL_PERIOD', row.TRIAL_PERIOD
+        attribute 'PHOTO', row.PHOTO
+        attribute 'D_BIRTH', row.D_BIRTH
+        attribute 'SNILS', row.SNILS
+        attribute 'FHEAD', row.FHEAD
+        attribute 'COMPANY_ID', row.COMPANY_ID
+        attribute 'TECH_DISSM', row.TECH_DISSM
+        attribute 'BOSS_MOBILE', row.BOSS_MOBILE
     }
 }
