@@ -65,13 +65,13 @@ class ScriptedSqlUtils {
 
     static void addUidAndName(Set<AttributeInfo> attributes) {
         AttributeInfoBuilder nmeBuilder = new AttributeInfoBuilder();
-        nmeBuilder.setCreateable(true);
-        nmeBuilder.setUpdateable(true);
+        nmeBuilder.setCreateable(false);
+        nmeBuilder.setUpdateable(false);
         nmeBuilder.setName(Name.NAME);
         attributes.add(nmeBuilder.build());
         AttributeInfoBuilder uidBuilder = new AttributeInfoBuilder();
-        uidBuilder.setCreateable(true);
-        uidBuilder.setUpdateable(true);
+        uidBuilder.setCreateable(false);
+        uidBuilder.setUpdateable(false);
         uidBuilder.setName(Uid.NAME);
         attributes.add(uidBuilder.build());
     }
