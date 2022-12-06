@@ -9,36 +9,20 @@
           xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3"
           oid="1b7adb1d-bf89-49fa-b5e0-0d53d915b8d7" version="275">
     <name>БОСС-Кадровик</name>
-    <connectorRef oid="6dd6cdc2-f658-417d-9ab5-495db5de2d39" relation="org:default" type="c:ConnectorType"/>
-    <!--    <connectorRef type="ConnectorType">-->
-    <!--        <filter>-->
-    <!--            <q:equal>-->
-    <!--                <q:path>connectorType</q:path>-->
-    <!--                <q:value>com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector</q:value>-->
-    <!--            </q:equal>-->
-    <!--        </filter>-->
-    <!--    </connectorRef>-->
-    <!--    <connectorConfiguration xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">-->
-    <!--        <icfc:configurationProperties xmlns:gen228="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-scripted-sql/com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector">-->
-    <!--            <gen228:scriptRoots>/opt/midpoint/var/scripts/boss/</gen228:scriptRoots>-->
-    <!--            <gen228:debug>true</gen228:debug>-->
-    <!--            <gen228:verbose>true</gen228:verbose>-->
-    <!--            <gen228:testScriptFileName>TestScript.groovy</gen228:testScriptFileName>-->
-    <!--            <gen228:recompileGroovySource>true</gen228:recompileGroovySource>-->
-    <!--            <gen228:autoCommit>true</gen228:autoCommit>-->
-    <!--            <gen228:user>postgres</gen228:user>-->
-    <!--            <gen228:password>postgres</gen228:password>-->
-    <!--&lt;!&ndash;            <gen228:jdbcURL>jdbc:postgresql://192.168.1.1:5432/postgres</gen228:jdbcURL>&ndash;&gt;-->
-    <!--            <gen228:jdbcDriver>jdbc.org.postgresql</gen228:jdbcDriver>-->
-    <!--            <gen228:jdbcUrlTemplate-->
-    <!--                    xmlns="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-scripted-sql/com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector"-->
-    <!--                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"-->
-    <!--                    xsi:schemaLocation="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-scripted-sql/com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector">jdbc:postgresql://192.168.1.1:5432/postgres</gen228:jdbcUrlTemplate>-->
-    <!--            <gen228:classpath>/opt/midpoint/var/lib/postgresql-42.5.1.jar</gen228:classpath>-->
-    <!--&lt;!&ndash;            <gen228:schemaScriptFileName>SchemaScript.groovy</gen228:schemaScriptFileName>&ndash;&gt;-->
-    <!--&lt;!&ndash;            <gen228:searchScriptFileName>SearchScript.groovy</gen228:searchScriptFileName>&ndash;&gt;-->
-    <!--        </icfc:configurationProperties>-->
-    <!--    </connectorConfiguration>-->
+    <connectorRef>
+        <filter>
+            <q:and>
+                <q:equal>
+                    <q:path>connectorType</q:path>
+                    <q:value>com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector</q:value>
+                </q:equal>
+                <q:equal>
+                    <q:path>connectorVersion</q:path>
+                    <q:value>2.2</q:value>
+                </q:equal>
+            </q:and>
+        </filter>
+    </connectorRef>
     <c:connectorConfiguration>
         <icfc:resultsHandlerConfiguration>
             <icfc:enableNormalizingResultsHandler>false</icfc:enableNormalizingResultsHandler>
@@ -49,8 +33,7 @@
 
 
         <!-- Configuration specific for the ScriptedSQL connector -->
-        <icfc:configurationProperties
-                xmlns:icscscriptedsql="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-scripted-sql/com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector">
+        <icfc:configurationProperties xmlns:icscscriptedsql="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/com.evolveum.polygon.connector-scripted-sql/com.evolveum.polygon.connector.scripted.sql.ScriptedSQLConnector">
             <icscscriptedsql:testScriptFileName>TestScript.groovy</icscscriptedsql:testScriptFileName>
             <icscscriptedsql:schemaScriptFileName>SchemaScript.groovy</icscscriptedsql:schemaScriptFileName>
             <icscscriptedsql:searchScriptFileName>SearchScript.groovy</icscscriptedsql:searchScriptFileName>
@@ -65,17 +48,11 @@
     </c:connectorConfiguration>
     <schema>
         <definition>
-            <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-                        xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3"
-                        xmlns:ra="http://midpoint.evolveum.com/xml/ns/public/resource/annotation-3"
-                        xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
-                        elementFormDefault="qualified"
-                        targetNamespace="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3"
-                        xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3">
+            <xsd:schema xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3" xmlns:ra="http://midpoint.evolveum.com/xml/ns/public/resource/annotation-3" xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xml:space="preserve">
                 <xsd:import namespace="http://prism.evolveum.com/xml/ns/public/annotation-3"/>
                 <xsd:import namespace="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3"/>
                 <xsd:import namespace="http://midpoint.evolveum.com/xml/ns/public/resource/annotation-3"/>
-                <xsd:complexType name="CustomDepartmentObjectClass">
+                <xsd:complexType name="CustomAppointObjectClass">
                     <xsd:annotation>
                         <xsd:appinfo>
                             <a:container/>
@@ -84,55 +61,15 @@
                             <ra:secondaryIdentifier>icfs:name</ra:secondaryIdentifier>
                             <ra:displayNameAttribute>icfs:name</ra:displayNameAttribute>
                             <ra:namingAttribute>icfs:name</ra:namingAttribute>
-                            <ra:nativeObjectClass>Department</ra:nativeObjectClass>
+                            <ra:nativeObjectClass>Appoint</ra:nativeObjectClass>
                         </xsd:appinfo>
                     </xsd:annotation>
                     <xsd:sequence>
-                        <xsd:element minOccurs="0" name="D_FROM" type="xsd:string">
-                            <xsd:annotation>
-                                <xsd:appinfo>
-                                    <a:displayOrder>120</a:displayOrder>
-                                    <ra:frameworkAttributeName>D_FROM</ra:frameworkAttributeName>
-                                </xsd:appinfo>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element minOccurs="0" name="DEPT_ID" type="xsd:int">
-                            <xsd:annotation>
-                                <xsd:appinfo>
-                                    <a:displayOrder>130</a:displayOrder>
-                                    <ra:frameworkAttributeName>DEPT_ID</ra:frameworkAttributeName>
-                                </xsd:appinfo>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element minOccurs="0" name="DEPT_LEVEL" type="xsd:string">
-                            <xsd:annotation>
-                                <xsd:appinfo>
-                                    <a:displayOrder>140</a:displayOrder>
-                                    <ra:frameworkAttributeName>DEPT_LEVEL</ra:frameworkAttributeName>
-                                </xsd:appinfo>
-                            </xsd:annotation>
-                        </xsd:element>
                         <xsd:element minOccurs="0" name="NAME_ENG" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>150</a:displayOrder>
+                                    <a:displayOrder>120</a:displayOrder>
                                     <ra:frameworkAttributeName>NAME_ENG</ra:frameworkAttributeName>
-                                </xsd:appinfo>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element minOccurs="0" name="AHEAD" type="xsd:int">
-                            <xsd:annotation>
-                                <xsd:appinfo>
-                                    <a:displayOrder>160</a:displayOrder>
-                                    <ra:frameworkAttributeName>AHEAD</ra:frameworkAttributeName>
-                                </xsd:appinfo>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element minOccurs="0" name="D_TO" type="xsd:string">
-                            <xsd:annotation>
-                                <xsd:appinfo>
-                                    <a:displayOrder>170</a:displayOrder>
-                                    <ra:frameworkAttributeName>D_TO</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
@@ -148,7 +85,7 @@
                         <xsd:element minOccurs="0" name="NAME" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>180</a:displayOrder>
+                                    <a:displayOrder>130</a:displayOrder>
                                     <ra:frameworkAttributeName>NAME</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -165,7 +102,7 @@
                         <xsd:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
                     </xsd:sequence>
                 </xsd:complexType>
-                <xsd:complexType name="CustomAppointObjectClass">
+                <xsd:complexType name="CustomDepartmentObjectClass">
                     <xsd:annotation>
                         <xsd:appinfo>
                             <a:container/>
@@ -174,27 +111,50 @@
                             <ra:secondaryIdentifier>icfs:name</ra:secondaryIdentifier>
                             <ra:displayNameAttribute>icfs:name</ra:displayNameAttribute>
                             <ra:namingAttribute>icfs:name</ra:namingAttribute>
-                            <ra:nativeObjectClass>Appoint</ra:nativeObjectClass>
+                            <ra:nativeObjectClass>Department</ra:nativeObjectClass>
                         </xsd:appinfo>
                     </xsd:annotation>
                     <xsd:sequence>
-                        <xsd:element minOccurs="0" name="ID" type="xsd:int">
+                        <xsd:element minOccurs="0" name="D_FROM" type="xsd:dateTime">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayOrder>120</a:displayOrder>
+                                    <ra:frameworkAttributeName>D_FROM</ra:frameworkAttributeName>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="DEPT_LEVEL" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>130</a:displayOrder>
-                                    <ra:frameworkAttributeName>ID</ra:frameworkAttributeName>
+                                    <ra:frameworkAttributeName>DEPT_LEVEL</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="NAME_ENG" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>150</a:displayOrder>
+                                    <a:displayOrder>140</a:displayOrder>
                                     <ra:frameworkAttributeName>NAME_ENG</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-
+                        <xsd:element minOccurs="0" name="AHEAD" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayOrder>150</a:displayOrder>
+                                    <ra:frameworkAttributeName>AHEAD</ra:frameworkAttributeName>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="D_TO" type="xsd:dateTime">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayOrder>160</a:displayOrder>
+                                    <ra:frameworkAttributeName>D_TO</ra:frameworkAttributeName>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
                         <xsd:element minOccurs="0" ref="icfs:name">
                             <xsd:annotation>
                                 <xsd:appinfo>
@@ -207,7 +167,7 @@
                         <xsd:element minOccurs="0" name="NAME" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>180</a:displayOrder>
+                                    <a:displayOrder>170</a:displayOrder>
                                     <ra:frameworkAttributeName>NAME</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -262,7 +222,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="EMPSTAT_ID" type="xsd:int">
+                        <xsd:element minOccurs="0" name="EMPSTAT_ID" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>150</a:displayOrder>
@@ -270,7 +230,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="COST_CENTER" type="xsd:int">
+                        <xsd:element minOccurs="0" name="COST_CENTER" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>160</a:displayOrder>
@@ -286,7 +246,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="APPOINT_ID" type="xsd:int">
+                        <xsd:element minOccurs="0" name="APPOINT_ID" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>180</a:displayOrder>
@@ -310,7 +270,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="D_OUT" type="xsd:string">
+                        <xsd:element minOccurs="0" name="D_OUT" type="xsd:dateTime">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>210</a:displayOrder>
@@ -327,7 +287,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="FHEAD" type="xsd:int">
+                        <xsd:element minOccurs="0" name="FHEAD" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>220</a:displayOrder>
@@ -351,7 +311,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="MATERNITY" type="xsd:int">
+                        <xsd:element minOccurs="0" name="MATERNITY" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>250</a:displayOrder>
@@ -359,7 +319,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="COMPANY_ID" type="xsd:int">
+                        <xsd:element minOccurs="0" name="COMPANY_ID" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>260</a:displayOrder>
@@ -375,7 +335,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="D_IN" type="xsd:string">
+                        <xsd:element minOccurs="0" name="D_IN" type="xsd:dateTime">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>280</a:displayOrder>
@@ -383,7 +343,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="DEPT_ID" type="xsd:int">
+                        <xsd:element minOccurs="0" name="DEPT_ID" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>290</a:displayOrder>
@@ -391,7 +351,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="BOSS3" type="xsd:int">
+                        <xsd:element minOccurs="0" name="BOSS3" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>300</a:displayOrder>
@@ -407,7 +367,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="MATERNITY_TO" type="xsd:string">
+                        <xsd:element minOccurs="0" name="MATERNITY_TO" type="xsd:dateTime">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>320</a:displayOrder>
@@ -415,7 +375,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="BOSS2" type="xsd:int">
+                        <xsd:element minOccurs="0" name="BOSS2" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>330</a:displayOrder>
@@ -423,7 +383,7 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="BOSS1" type="xsd:int">
+                        <xsd:element minOccurs="0" name="BOSS1" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>340</a:displayOrder>
@@ -447,18 +407,26 @@
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="BOSS_MOBILE" type="xsd:string">
+                        <xsd:element minOccurs="0" name="FIOEN" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
                                     <a:displayOrder>370</a:displayOrder>
+                                    <ra:frameworkAttributeName>FIOEN</ra:frameworkAttributeName>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element minOccurs="0" name="BOSS_MOBILE" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayOrder>380</a:displayOrder>
                                     <ra:frameworkAttributeName>BOSS_MOBILE</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="D_BIRTH" type="xsd:string">
+                        <xsd:element minOccurs="0" name="D_BIRTH" type="xsd:dateTime">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>380</a:displayOrder>
+                                    <a:displayOrder>390</a:displayOrder>
                                     <ra:frameworkAttributeName>D_BIRTH</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -466,7 +434,7 @@
                         <xsd:element minOccurs="0" name="EMAIL_EXT" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>390</a:displayOrder>
+                                    <a:displayOrder>400</a:displayOrder>
                                     <ra:frameworkAttributeName>EMAIL_EXT</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -474,7 +442,7 @@
                         <xsd:element minOccurs="0" name="LEAVE_PLAN" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>400</a:displayOrder>
+                                    <a:displayOrder>410</a:displayOrder>
                                     <ra:frameworkAttributeName>LEAVE_PLAN</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -482,15 +450,15 @@
                         <xsd:element minOccurs="0" name="F_NAME" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>410</a:displayOrder>
+                                    <a:displayOrder>420</a:displayOrder>
                                     <ra:frameworkAttributeName>F_NAME</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="TRIAL_PERIOD" type="xsd:string">
+                        <xsd:element minOccurs="0" name="TRIAL_PERIOD" type="xsd:dateTime">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>420</a:displayOrder>
+                                    <a:displayOrder>430</a:displayOrder>
                                     <ra:frameworkAttributeName>TRIAL_PERIOD</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -498,15 +466,15 @@
                         <xsd:element minOccurs="0" name="M_NAME" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>430</a:displayOrder>
+                                    <a:displayOrder>440</a:displayOrder>
                                     <ra:frameworkAttributeName>M_NAME</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="MATERNITY_FROM" type="xsd:string">
+                        <xsd:element minOccurs="0" name="MATERNITY_FROM" type="xsd:dateTime">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>440</a:displayOrder>
+                                    <a:displayOrder>450</a:displayOrder>
                                     <ra:frameworkAttributeName>MATERNITY_FROM</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -514,31 +482,31 @@
                         <xsd:element minOccurs="0" name="TAB_N" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>450</a:displayOrder>
+                                    <a:displayOrder>460</a:displayOrder>
                                     <ra:frameworkAttributeName>TAB_N</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="CARD_ID" type="xsd:int">
+                        <xsd:element minOccurs="0" name="CARD_ID" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>460</a:displayOrder>
+                                    <a:displayOrder>470</a:displayOrder>
                                     <ra:frameworkAttributeName>CARD_ID</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="BOARD2" type="xsd:int">
+                        <xsd:element minOccurs="0" name="BOARD2" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>470</a:displayOrder>
+                                    <a:displayOrder>480</a:displayOrder>
                                     <ra:frameworkAttributeName>BOARD2</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="BOARD1" type="xsd:int">
+                        <xsd:element minOccurs="0" name="BOARD1" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>480</a:displayOrder>
+                                    <a:displayOrder>490</a:displayOrder>
                                     <ra:frameworkAttributeName>BOARD1</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -546,7 +514,7 @@
                         <xsd:element minOccurs="0" name="NAME_OLD" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>490</a:displayOrder>
+                                    <a:displayOrder>500</a:displayOrder>
                                     <ra:frameworkAttributeName>NAME_OLD</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -554,7 +522,7 @@
                         <xsd:element minOccurs="0" name="ROOM" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>500</a:displayOrder>
+                                    <a:displayOrder>510</a:displayOrder>
                                     <ra:frameworkAttributeName>ROOM</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -605,35 +573,6 @@
                 </inbound>
             </attribute>
             <attribute>
-                <ref>ri:ID</ref>
-                <exclusiveStrong>false</exclusiveStrong>
-                <inbound>
-                    <authoritative>true</authoritative>
-                    <exclusive>false</exclusive>
-                    <strength>strong</strength>
-                    <expression>
-                        <assignmentTargetSearch>
-                            <targetType>OrgType</targetType>
-                            <filter>
-                                <q:equal>
-                                    <q:path>identifier</q:path>
-                                    <expression>
-                                        <script>
-                                            <code>
-                                                return input.toString()
-                                            </code>
-                                        </script>
-                                    </expression>
-                                </q:equal>
-                            </filter>
-                        </assignmentTargetSearch>
-                    </expression>
-                    <target>
-                        <path>assignment</path>
-                    </target>
-                </inbound>
-            </attribute>
-            <attribute>
                 <ref>ri:AHEAD</ref>
                 <exclusiveStrong>false</exclusiveStrong>
                 <inbound>
@@ -678,35 +617,6 @@
                     <strength>strong</strength>
                     <target>
                         <path>displayName</path>
-                    </target>
-                </inbound>
-            </attribute>
-            <attribute>
-                <ref>ri:ID</ref>
-                <exclusiveStrong>false</exclusiveStrong>
-                <inbound>
-                    <authoritative>true</authoritative>
-                    <exclusive>false</exclusive>
-                    <strength>strong</strength>
-                    <expression>
-                        <assignmentTargetSearch>
-                            <targetType>OrgType</targetType>
-                            <filter>
-                                <q:equal>
-                                    <q:path>identifier</q:path>
-                                    <expression>
-                                        <script>
-                                            <code>
-                                                return input.toString()
-                                            </code>
-                                        </script>
-                                    </expression>
-                                </q:equal>
-                            </filter>
-                        </assignmentTargetSearch>
-                    </expression>
-                    <target>
-                        <path>assignment</path>
                     </target>
                 </inbound>
             </attribute>
