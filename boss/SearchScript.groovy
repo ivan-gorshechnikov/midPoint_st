@@ -13,7 +13,7 @@ import org.identityconnectors.framework.common.objects.filter.Filter
 
 import java.sql.Connection
 
-import static common.ScriptedSqlUtils.*
+import common.ScriptedSqlUtils
 import common.ColumnPrefixMapper
 
 def log = log as Log
@@ -50,14 +50,14 @@ switch (objectClass) {
 return new SearchResult()
 
 void handleDepartment(Sql sql) {
-	Closure closure = { row ->
+    Closure closure = { row ->
         buildDepartment(sql, row)
     }
-	def sqlQuery = '''select 
+    def sqlQuery = '''select 
 	ID,
 	NAME,
-	TO_CHAR(D_FROM, 'DD.MM.YYYY') AS D_FROM,
-	TO_CHAR(D_TO, 'DD.MM.YYYY') AS D_TO,
+	D_FROM,
+	D_TO,
 	DEPT_ID,
 	DEPT_LEVEL,
 	NAME_ENG,
@@ -65,16 +65,16 @@ void handleDepartment(Sql sql) {
 	from dept
 	where D_FROM <= SYSDATE and SYSDATE <= D_TO'''
 
-	Map params = [:]
+    Map params = [:]
 
-	String where = buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
+    String where = ScriptedSqlUtils.buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
 
-	if (!where.isEmpty()) {
+    if (!where.isEmpty()) {
         sqlQuery += " and " + where
     }
-    
+
     sql.withTransaction {
-        executeQuery(sqlQuery, params, options, closure, handler, sql)
+        ScriptedSqlUtils.executeQuery(sqlQuery, params, options, closure, handler, sql)
     }
 }
 
@@ -90,14 +90,14 @@ void handleAppoint(Sql sql) {
 
     Map params = [:]
 
-    String where = buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
+    String where = ScriptedSqlUtils.buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
 
     if (!where.isEmpty()) {
-        sqlQuery += " and " + where
+        sqlQuery += " where " + where
     }
 
     sql.withTransaction {
-        executeQuery(sqlQuery, params, options, closure, handler, sql)
+        ScriptedSqlUtils.executeQuery(sqlQuery, params, options, closure, handler, sql)
     }
 }
 
@@ -108,12 +108,12 @@ void handleAccount(Sql sql) {
     def sqlQuery = '''select 
     STATUS_EMP,
     ID,           
-    TO_CHAR(D_IN, 'DD.MM.YYYY') AS D_IN,
-    TO_CHAR(D_OUT, 'DD.MM.YYYY') AS D_OUT,
-    TO_CHAR(MATERNITY_FROM, 'DD.MM.YYYY') AS MATERNITY_FROM,
-    TO_CHAR(MATERNITY_TO, 'DD.MM.YYYY') AS MATERNITY_TO,
-    TO_CHAR(TRIAL_PERIOD, 'DD.MM.YYYY') AS TRIAL_PERIOD,
-    TO_CHAR(D_BIRTH, 'DD.MM.YYYY') AS D_BIRTH,         
+    D_IN,
+    D_OUT,
+    MATERNITY_FROM,
+    MATERNITY_TO,
+    AS TRIAL_PERIOD,
+    D_BIRTH,         
     TAB_N,                  
     CARD_ID,               
     L_NAME,               
@@ -151,30 +151,30 @@ void handleAccount(Sql sql) {
 
     Map params = [:]
 
-    String where = buildWhereClause(filter, params, "ID", 'LOGIN', new ColumnPrefixMapper(''), String.class)
+    String where = ScriptedSqlUtils.buildWhereClause(filter, params, "ID", 'LOGIN', new ColumnPrefixMapper(''), String.class)
 
     if (!where.isEmpty()) {
         sqlQuery += " where " + where
     }
 
     sql.withTransaction {
-        executeQuery(sqlQuery, params, options, closure, handler, sql)
+        ScriptedSqlUtils.executeQuery(sqlQuery, params, options, closure, handler, sql)
     }
 }
 
 static ConnectorObject buildDepartment(Sql sql, GroovyObject row) {
-	return ICFObjectBuilder.co {
-		objectClass 'CustomDepartmentObjectClass'
-		uid row.ID as String
-		id row.ID as String
-		attribute 'NAME', row.NAME
-		attribute 'D_FROM', row.D_FROM
-		attribute 'D_TO', row.D_TO
-		attribute 'DEPT_ID', row.DEPT_ID
-		attribute 'DEPT_LEVEL', row.DEPT_LEVEL
-		attribute 'NAME_ENG', row.NAME_ENG
-		attribute 'AHEAD', row.AHEAD
-	}
+    return ICFObjectBuilder.co {
+        objectClass 'CustomDepartmentObjectClass'
+        uid row.ID as String
+        id row.ID as String
+        attribute 'NAME', row.NAME
+        attribute 'D_FROM', row.D_FROM
+        attribute 'D_TO', row.D_TO
+        attribute 'DEPT_ID', row.DEPT_ID
+        attribute 'DEPT_LEVEL', row.DEPT_LEVEL
+        attribute 'NAME_ENG', row.NAME_ENG
+        attribute 'AHEAD', row.AHEAD
+    }
 }
 
 static ConnectorObject buildAppoint(Sql sql, GroovyObject row) {
