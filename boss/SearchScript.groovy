@@ -66,8 +66,11 @@ void handleDepartment(Sql sql) {
 	where D_FROM <= SYSDATE and SYSDATE <= D_TO'''
 
     Map params = [:]
+    String uidColumn = 'ID';
+    String nameColumn = 'NAME';
 
-    String where = ScriptedSqlUtils.buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
+
+    String where = ScriptedSqlUtils.buildWhereClause(filter, params, uidColumn, nameColumn, new ColumnPrefixMapper(''), Integer.class)
 
     if (!where.isEmpty()) {
         sqlQuery += " and " + where
@@ -89,8 +92,10 @@ void handleAppoint(Sql sql) {
 	from appoint'''
 
     Map params = [:]
+    String uidColumn = 'ID';
+    String nameColumn = 'NAME';
 
-    String where = ScriptedSqlUtils.buildWhereClause(filter, params, "ID", 'NAME', new ColumnPrefixMapper(''), Integer.class)
+    String where = ScriptedSqlUtils.buildWhereClause(filter, params, uidColumn, nameColumn, new ColumnPrefixMapper(''), Integer.class)
 
     if (!where.isEmpty()) {
         sqlQuery += " where " + where
@@ -150,8 +155,10 @@ void handleAccount(Sql sql) {
     from emp'''
 
     Map params = [:]
+    String uidColumn = 'ID';
+    String nameColumn = 'LOGIN';
 
-    String where = ScriptedSqlUtils.buildWhereClause(filter, params, "ID", 'LOGIN', new ColumnPrefixMapper(''), String.class)
+    String where = ScriptedSqlUtils.buildWhereClause(filter, params, uidColumn, nameColumn, new ColumnPrefixMapper(''), String.class)
 
     if (!where.isEmpty()) {
         sqlQuery += " where " + where
@@ -229,7 +236,7 @@ static ConnectorObject buildAccount(Sql sql, GroovyObject row) {
         attribute 'SNILS', row.SNILS
         attribute 'FHEAD', row.FHEAD
         attribute 'COMPANY_ID', row.COMPANY_ID
-        attribute 'TECH_DISSM', row.TECH_DISSM
+        attribute 'TECH_DISSM', row.TECH_DISSMd
         attribute 'BOSS_MOBILE', row.BOSS_MOBILE
     }
 }

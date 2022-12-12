@@ -5,6 +5,14 @@ xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
 xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
 xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3">
     <name>Contact</name>
+    <displayName>
+        <t:orig>Contacts</t:orig>
+        <t:norm>contacts</t:norm>
+        <t:lang>
+            <t:en>Contacts</t:en>
+            <t:ru>Контакты</t:ru>
+        </t:lang>
+    </displayName>
     <description>Contacts (external and internal)</description>
     <archetypePolicy>
         <display>

@@ -54,8 +54,7 @@ class ScriptedSqlUtils {
         return filter.accept(filterVisitor, null)
     }
 
-    static Class<?> covertOracleTypeToJava(String type)
-    {
+    static Class<?> covertOracleTypeToJava(String type) {
         switch (type) {
             case 'NUMBER': return Integer.class;
             case 'DATE': return ZonedDateTime.class;

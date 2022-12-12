@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<!-- (c) 2011-2018 Evolveum, All rights reserved -->
+
+<xsd:schema elementFormDefault="qualified"
+            targetNamespace="http://example.com/midpoint"
+            xmlns:tns="http://example.com/midpoint"
+            xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3"
+            xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3"
+            xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3"
+            xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <xsd:import namespace="http://midpoint.evolveum.com/xml/ns/public/common/common-3"/>
+
+    <xsd:complexType name="UserExtensionType">
+        <xsd:annotation>
+            <xsd:appinfo>
+                <a:extension ref="c:UserType"/>
+            </xsd:appinfo>
+        </xsd:annotation>
+        <xsd:sequence>
+            <xsd:element name="tabNum" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayOrder>130</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="card_id" type="xsd:int" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>
+                            <t:orig>Уникальный идентификатор</t:orig>
+                            <t:norm>уникальный идентификатор</t:norm>
+                            <t:lang>
+                                <t:en>Card Id</t:en>
+                            </t:lang>
+                        </a:displayName>
+                        <a:displayOrder>140</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="mobile" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>
+                            <t:orig>Мобильный телефон</t:orig>
+                            <t:norm>мобильный телефон</t:norm>
+                            <t:lang>
+                                <t:en>Mobile phone</t:en>
+                            </t:lang>
+                        </a:displayName>
+                        <a:displayOrder>150</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="login" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>true</a:indexed>
+                        <a:displayName>
+                            <t:orig>Логин</t:orig>
+                            <t:norm>логин</t:norm>
+                            <t:lang>
+                                <t:en>Login</t:en>
+                            </t:lang>
+                        </a:displayName>
+                        <a:displayOrder>160</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="sex" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Sex</a:displayName>
+                        <a:displayOrder>170</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        M: Male
+                        F: Female
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="dateIn" type="xsd:date" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Date in</a:displayName>
+                        <a:displayOrder>180</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Acceptance date (first working day)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="dateOut" type="xsd:date" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Date out</a:displayName>
+                        <a:displayOrder>190</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Date of departure (last working day)
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="deptName" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Department id</a:displayName>
+                        <a:displayOrder>200</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Name of the main division
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="boss1" type="c:ObjectReferenceType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>First leader</a:displayName>
+                        <a:displayOrder>220</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        First leader
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="boss2" type="c:ObjectReferenceType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Second leader</a:displayName>
+                        <a:displayOrder>230</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Second leader
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="boss3" type="c:ObjectReferenceType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Boss2</a:displayName>
+                        <a:displayOrder>240</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Leader at a level above the immediate supervisor
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="board1" type="c:ObjectReferenceType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Board1</a:displayName>
+                        <a:displayOrder>250</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Leader level B-1
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="board2" type="c:ObjectReferenceType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Board2</a:displayName>
+                        <a:displayOrder>260</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Leader level B-2
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="fhead" type="c:ObjectReferenceType" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Fhead</a:displayName>
+                        <a:displayOrder>270</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Functional leader
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="room" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Room</a:displayName>
+                        <a:displayOrder>280</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Room
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="ext" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>
+                            <t:orig>Внутренний телефонный номер</t:orig>
+                            <t:norm>внутренний телефонный номер</t:norm>
+                            <t:lang>
+                                <t:en>Internal mobile phone</t:en>
+                            </t:lang>
+                        </a:displayName>
+                        <a:displayOrder>290</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="emailExt" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Email ext</a:displayName>
+                        <a:displayOrder>300</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Mailbox in Exchange
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+
+            <xsd:element name="birth" type="xsd:date" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Birth</a:displayName>
+                        <a:displayOrder>310</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Birth date
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="snils" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Snils</a:displayName>
+                        <a:displayOrder>320</a:displayOrder>
+                    </xsd:appinfo>
+                    <xsd:documentation>
+                        Snils number
+                    </xsd:documentation>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="companyId" type="xsd:int" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Company ID</a:displayName>
+                        <a:displayOrder>330</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+            <xsd:element name="status" type="xsd:string" minOccurs="0" maxOccurs="1">
+                <xsd:annotation>
+                    <xsd:appinfo>
+                        <a:indexed>false</a:indexed>
+                        <a:displayName>Status</a:displayName>
+                        <a:displayOrder>340</a:displayOrder>
+                    </xsd:appinfo>
+                </xsd:annotation>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+</xsd:schema>
